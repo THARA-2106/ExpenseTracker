@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: expense-tracker-backend
+    env: node
+    buildCommand: cd server && npm install
+    startCommand: cd server && npm start
+    envVars:
+      - key: MONGODB_URI
+        value: mongodb+srv://tharasrim2106:thara2106sri@cluster0.7vlgq62.mongodb.net/exptracker?retryWrites=true&w=majority&appName=Cluster0
+      - key: JWT_SECRET
+        value: expense_tracker_secret_key_2024_secure
+      - key: PORT
+        value: 10000
