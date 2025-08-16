@@ -14,6 +14,9 @@ function App() {
   const [category, setCategory] = useState('food')
   const [date, setDate] = useState(new Date().toISOString().split('T')[0])
   const [editingExpense, setEditingExpense] = useState(null)
+  
+  // Get API base URL from environment variable
+  const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
   // Load expenses from localStorage when user logs in
   useEffect(() => {
@@ -27,7 +30,7 @@ function App() {
           return;
         }
         try {
-          const response = await fetch('http://localhost:5000/api/expenses', {
+          const response = await fetch(`${API_BASE_URL}/api/expenses`, {
             headers: {
               'Authorization': `Bearer ${token}`
             }
@@ -88,7 +91,7 @@ function App() {
     try {
       if (editingExpense) {
         // Update existing expense
-        const response = await fetch(`http://localhost:5000/api/expenses/${editingExpense._id}`, { // Use _id from backend
+        const response = await fetch(`${API_BASE_URL}/api/expenses/${editingExpense._id}`, { // Use _id from backend
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -163,7 +166,7 @@ function App() {
        return;
     }
     try {
-      const response = await fetch(`http://localhost:5000/api/expenses/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/api/expenses/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
